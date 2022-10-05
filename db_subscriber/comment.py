@@ -9,7 +9,7 @@ def add_comment_mutation(content, gql_client):
         return True
     targetId = content['targetId'] if 'targetId' in content and content['targetId'] else False
     state = content['state'] if 'state' in content and content['state'] else False
-    comment_content = content['content'] if 'content' in content and content['content'] else False
+    comment_content = content['content'].replace("\n", "\\n") if 'content' in content and content['content'] else False
     obj = content['objective'] if 'objective' in content and content['objective'] else False
     published_date = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
@@ -54,7 +54,7 @@ def rm_comment_mutation(content, gql_client):
 
 def edit_comment_mutation(content, gql_client):
     commentId = content['commentId'] if 'commentId' in content and content['commentId'] else False
-    comment_content = content['content'] if 'content' in content and content['content'] else False
+    comment_content = content['content'].replace("\n", "\\n") if 'content' in content and content['content'] else False
     if not (commentId and comment_content):
         print("no required data for action")
         return False
